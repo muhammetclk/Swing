@@ -1,14 +1,25 @@
 
 import java.util.ArrayList;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 public class Demo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Demo
-     */
+    DefaultTableModel model;
     public Demo() {
         initComponents();
+        model=(DefaultTableModel)tblCities.getModel();
+        try {
+            ArrayList<City> cities=getCities();
+            for (City city : cities) {
+                Object[] row={city.getId(),city.getName(),city.getCountryCode(),city.getDistrict(),city.getPopulation()};
+                model.addRow(row);
+            }
+        } catch (SQLException ex) {
+           
+        }
     }
 
     public ArrayList<City> getCities()throws SQLException{
